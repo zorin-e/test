@@ -29,6 +29,8 @@ class MyClass {
 
 	public $prop = "Свойство класса<br>";
 
+	public static $count = 0;
+
 	public function __construct()
 	{
 		echo 'Cоздан объект класса "'.__CLASS__.'"<br>';
@@ -53,6 +55,12 @@ class MyClass {
 	{
 		return $this->prop;
 	}
+
+	public static function plusOne() {
+		return "count = ".++self::$count."<br>";
+	}
+
+
 }
 
 
@@ -77,6 +85,10 @@ class MyOtherClass extends MyClass
 	}
 }
 
+do {
+	echo MyClass::plusOne();
+} while ( MyClass::$count < 10);
+
 // $object = new MyClass;
 
 // echo $object->GetProperty()." &mdash; получили свойство<br>";
@@ -85,8 +97,8 @@ class MyOtherClass extends MyClass
 
 // echo $object." &mdash; получили новое свойство, выводим объект строку, юзается метод __toString<br>";
 
-$newobject = new MyOtherClass;
+// $newobject = new MyOtherClass;
 
-echo $newobject->GetProtected();
+// echo $newobject->GetProtected();
 
 ?>
