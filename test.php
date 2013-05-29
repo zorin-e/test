@@ -35,13 +35,13 @@ class Member {
 	}
 }
 
-echo Member::GetNumMembers();
+//echo Member::GetNumMembers();
 $m = new Member("Фред", Member::MEMBER);
 echo $m->Username()." — права: ".$m->GetLevel()."<br>";
-echo Member::GetNumMembers();
+//echo Member::GetNumMembers();
 $m2 = new Member("Поуль", Member::MODERATOR);
 echo $m->Username();
-echo Member::GetNumMembers();
+//echo Member::GetNumMembers();
 // echo <<<HTML
 // <script type='text/javascript' src='http://ajax.googleapis.com/ajax/libs/jquery/1.8/jquery.min.js'></script>
 // <script>
