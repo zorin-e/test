@@ -40,7 +40,7 @@ $m = new Member("Фред", Member::MEMBER);
 echo $m->Username()." — права: ".$m->GetLevel()."<br>";
 //echo Member::GetNumMembers();
 $m2 = new Member("Поуль", Member::MODERATOR);
-echo $m->Username();
+echo $m2->Username()." — права: ".$m2->GetLevel()."<br>";
 //echo Member::GetNumMembers();
 // echo <<<HTML
 // <script type='text/javascript' src='http://ajax.googleapis.com/ajax/libs/jquery/1.8/jquery.min.js'></script>
