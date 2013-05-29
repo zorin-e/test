@@ -2,13 +2,19 @@
 header('Content-type: text/html; charset=utf-8');
 
 class Member {
+	const MEMBER = 1;
+	const MODERATOR = 2;
+	const ADMINISTRATOR = 3;
+
 	private $username;
+	private $level;
 	static private $numMembers = 0;
 
-	public function __construct($username)
+	public function __construct($username, $level)
 	{
 		$this->username = $username;
 		++self::$numMembers;
+		$this->level = $level;
 	}
 
 	static public function GetNumMembers()
@@ -20,13 +26,20 @@ class Member {
 	{
 		return $this->username;
 	}
+
+	public function GetLevel()
+	{
+		if (self::MEMBER == $this->level) return self::MEMBER;
+		if (self::MODERATOR == $this->level) return self::MODERATOR;
+		if (self::ADMINISTRATOR == $this->level) return self::ADMINISTRATOR;
+	}
 }
 
 echo Member::GetNumMembers();
-$m = new Member("and");
-echo $m->Username();
+$m = new Member("Фред", Member::MEMBER);
+echo $m->Username()." — права: ".$m->GetLevel()."<br>";
 echo Member::GetNumMembers();
-$m2 = new Member("and2");
+$m2 = new Member("Поуль", Member::MODERATOR);
 echo $m->Username();
 echo Member::GetNumMembers();
 // echo <<<HTML
