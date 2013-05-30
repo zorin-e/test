@@ -2,45 +2,104 @@
 header('Content-type: text/html; charset=utf-8');
 
 class Member {
-	const MEMBER = 1;
-	const MODERATOR = 2;
-	const ADMINISTRATOR = 3;
-
 	private $username;
-	private $level;
-	static private $numMembers = 0;
 
-	public function __construct($username, $level)
+	public function __construct($username)
 	{
 		$this->username = $username;
-		++self::$numMembers;
-		$this->level = $level;
 	}
 
-	static public function GetNumMembers()
-	{
-		return self::$numMembers;
-	}
-
-	public function Username()
+	public function GetUsername2()
 	{
 		return $this->username;
 	}
+}
 
-	public function GetLevel()
+class Topic {
+	private $subject;
+	private $member2;
+
+	public function __construct(Member $member, $subject)
 	{
-		if (self::MEMBER == $this->level) return self::MEMBER;
-		if (self::MODERATOR == $this->level) return self::MODERATOR;
-		if (self::ADMINISTRATOR == $this->level) return self::ADMINISTRATOR;
+		$this->subject = $subject;
+		$this->member2 = $member;
+	}
+
+	public function GetUsername()
+	{
+		return $this->member2->GetUsername2();
 	}
 }
 
-//echo Member::GetNumMembers();
-$m = new Member("Фред", Member::MEMBER);
-echo $m->Username()." — права: ".$m->GetLevel()."<br>";
-//echo Member::GetNumMembers();
-$m2 = new Member("Поуль", Member::MODERATOR);
-echo $m2->Username()." — права: ".$m2->GetLevel()."<br>";
+$aMember = new Member( "fred" );
+
+$aTopic = new Topic( $aMember, "Hello everybody!" );
+
+echo $aTopic->GetUsername(); // отобразит "fred"
+
+
+
+class Widget {
+
+ private $colour;
+
+ public function __construct( $colour ) {
+   $this->colour = $colour;
+ }
+
+ public function getColour() {
+   return $this->colour;
+ }
+}
+
+
+$aWidget = new Widget( "blue" );
+$anotherTopic = new Topic( $aWidget, "Oops!" );
+
+// отобразит "Fatal error: Call to undefined method Widget::getUsername()"
+echo $anotherTopic->GetUsername(); 
+
+
+// class Member {
+// 	const MEMBER = 1;
+// 	const MODERATOR = 2;
+// 	const ADMINISTRATOR = 3;
+
+// 	private $username;
+// 	private $level;
+// 	static private $numMembers = 0;
+
+// 	public function __construct($username, $level)
+// 	{
+// 		$this->username = $username;
+// 		++self::$numMembers;
+// 		$this->level = $level;
+// 	}
+
+// 	static public function GetNumMembers()
+// 	{
+// 		return self::$numMembers;
+// 	}
+
+// 	public function Username()
+// 	{
+// 		return $this->username;
+// 	}
+
+// 	public function GetLevel()
+// 	{
+// 		if (self::MEMBER == $this->level) return self::MEMBER;
+// 		if (self::MODERATOR == $this->level) return self::MODERATOR;
+// 		if (self::ADMINISTRATOR == $this->level) return self::ADMINISTRATOR;
+// 	}
+// }
+
+// //echo Member::GetNumMembers();
+// $m = new Member("Фред", Member::MEMBER);
+// echo $m->Username()." — права: ".$m->GetLevel()."<br>";
+// //echo Member::GetNumMembers();
+// $m2 = new Member("Поуль", Member::MODERATOR);
+// echo $m2->Username()." — права: ".$m2->GetLevel()."<br>";
 //echo Member::GetNumMembers();
 // echo <<<HTML
 // <script type='text/javascript' src='http://ajax.googleapis.com/ajax/libs/jquery/1.8/jquery.min.js'></script>
