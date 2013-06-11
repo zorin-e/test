@@ -2,58 +2,50 @@
 header('Content-type: text/html; charset=utf-8');
 
 class Member {
+	public $username = "";
+	protected $loggedIn = false;
 
- private $username;
+	public function login() {
+		$this->loggedIn = true;
+	}
 
- private $location;
+	public function logout() {
+		$this->loggedIn = false;
+		echo "$this->username вышел<br>";
+	}
 
- public function __construct( $username, $location ) {
-   $this->username = $username;
-   $this->location = $location;
- }
-
- public function getUsername() {
-   return $this->username;
- }
-
-
- public function getLocation() {
-   return $this->location;
- }
-
+	public function isLoggedIn() {
+		return $this->loggedIn;
+	}
 }
 
-class Topic {
+class Administrator extends Member {
+	public function createForum($forumName) {
+		echo "$this->username, создал форум: $forumName.<br>";
+	}
 
- private $member;
- private $subject;
+	public function banMember($member) {
+		echo "$this->username забанил пользователя: $member->username.<br>";
+	}
 
- public function __construct( $member, $subject ) {
-   $this->member = $member;
-   $this->subject = $subject;
- }
-
- public function getSubject() {
-   return $this->subject;
- }
-
-
-// public function getUsername() {
-// 	return $this->member->getUsername();
-// }
-
-
-public function __call($member, $arguments) {
-	return $this->member->$member($arguments);
+	public function login() {
+		parent::login();
+		echo "$this->username залогинился).<br>";
+	}
 }
 
+$member = new Member();
+$member->username = "Фред";
+$member->login();
+echo $member->username." ".($member->isLoggedIn() ? "залогинился":"вышел")."<br>";
+$member->logout();
 
-}
 
-$aMember = new Member( "fred", "Ямайка" );
-$aTopic = new Topic( $aMember, "Hello everybody!" );
-echo $aTopic->getSubject() . "<br>"; // отобразит "Hello everybody!"
-echo $aTopic->getUsername() . "<br>"; // отобразит "fred"
-
-echo $aTopic->getLocation() . "<br>"; 
+$admin = new Administrator();
+$admin->username = "Поуль";
+$admin->login();
+//echo $admin->isLoggedIn();
+$admin->createForum("Мишки Тедди");
+$admin->banMember($member);
+$admin->logout();
 ?>
